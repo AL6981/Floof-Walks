@@ -35,16 +35,7 @@ get '/floofs/:id' do
 end
 
 post '/walks' do
-  @floof = Floof.find(params[:floof_id])
-  @walker = Walker.find(params[:walker_id])
-  @day = params[:day]
-  walk = Walk.new(floof: @floof, walker: @walker, day: @day)
-
-  if walk.save
-    redirect "/floofs/#{params[:floof_id]}"
-  else
-    erb :'floofs/show'
-  end
+# Add code here!
 end
 
 post '/floofs' do
