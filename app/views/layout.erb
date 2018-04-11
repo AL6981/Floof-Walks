@@ -21,7 +21,9 @@
     <% if flash.any? %>
       <div class="flash">
         <div class="container">
-          <%= flash[:message] %>
+          <% flash.each_key do |key| %>
+          <%= flash[key] %>
+          <% end %>
         </div>
       </div>
     <% end %>

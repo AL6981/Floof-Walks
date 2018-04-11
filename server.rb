@@ -4,7 +4,6 @@ require "pry" if development? || test?
 require 'sinatra/flash'
 set :sessions, true
 
-
 Dir[File.join(File.dirname(__FILE__), 'app', '**', '*.rb')].each do |file|
   require file
 end
@@ -19,7 +18,6 @@ end
 
 get '/floofs' do
   @floofs = Floof.all
-
   erb :'/floofs/index'
 end
 
@@ -52,17 +50,16 @@ end
 post '/floofs' do
   floof = Floof.new(name: params[:name])
     if floof.save
-      flash.merge!(message: "Saved!")
+      flash[:message] = "Saved!"
       redirect "/floofs"
     else
+      flash[:error] = "Bummer, something went wrong."
       erb :'floofs/new'
     end
-  erb :'floofs/index'
 end
 
 get '/walkers' do
   @walkers = Walker.all
-
   erb :'/walkers/index'
 end
 
@@ -78,14 +75,13 @@ get '/walkers/:walker_id' do
   erb :'/walkers/show'
 end
 
-
 post '/walkers' do
   walker = Walker.new(name: params[:name])
-    if walker.valid?
-      walker.save
+    if walker.save
+      flash[:message] = "Saved!"
       redirect '/walkers'
     else
+      flash[:error] = "Bummer, something went wrong."
       erb :'walkers/new'
     end
-  erb :'walkers/new'
 end
