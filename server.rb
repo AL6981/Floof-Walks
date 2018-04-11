@@ -27,8 +27,8 @@ get '/floofs/new' do
   erb :'floofs/new'
 end
 
-get '/floofs/:floof_id' do
-  @floof = Floof.find(params[:floof_id])
+get '/floofs/:id' do
+  @floof = Floof.find(params[:id])
   @walkers = Walker.all
   @walks = @floof.walks
   @days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
@@ -39,7 +39,7 @@ end
 post '/walks' do
   @floof = Floof.find(params[:floof_id])
   @walker = Walker.find(params[:walker_id])
-  @day = params[:day_id]
+  @day = params[:day]
   walk = Walk.new(floof: @floof, walker: @walker, day: @day)
 
   if walk.save
