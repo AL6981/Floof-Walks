@@ -77,11 +77,11 @@ end
 
 post '/walkers' do
   walker = Walker.new(name: params[:name])
-    if walker.save
+    if walker.save == false
       flash[:message] = "Saved!"
       redirect '/walkers'
     else
-      flash[:error] = "Bummer, something went wrong."
+      flash.now[:error] = "Bummer, something went wrong."
       erb :'walkers/new'
     end
 end
